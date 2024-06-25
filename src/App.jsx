@@ -1,50 +1,26 @@
-import { useEffect, useState } from "react";
-import "./index.css";
+import "./Styles/index.css";
+import Home from "./Components/Home";
+import Details from "./Components/Details";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppContext from "./Components/Context";
 
-import Pricing from "./Pricing";
 
-import Card from "./Card";
-
-import axios from "axios";
-let url = "https://swapi.dev/api/people/?page=2";
-let imgBase = "https://starwars-visualguide.com/assets/img/characters";
 
 function App() {
-  const [data, setData] = useState([]);
-  // Item 1 from readme
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        let response = await axios.get(url);
-        let people = response.data.results.map((element, i) => {
-          // element.img = imgBase + "/" + i+1
-          // element.img = `${imgBase}/${i+1}`
-          let img = `${imgBase}/${i + 1}`;
+  
 
-          return { ...element, img };
-        });
-        setData(people);
-        console.log(response);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-    fetchData();
-  }, []);
+
   return (
-    <div>
-      <ul className="text-xl font-bold underline">
-        {data
-          ? data.map((el) => {
-              return <li key={el.name}>{el.name}</li>;
-            })
-          : "no data"}
-      </ul>
-
-      <Card />
-
-      <Pricing />
-    </div>
+    <>
+      <AppContext>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/details" element={<Details />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </AppContext>
+    </>
   );
 }
 

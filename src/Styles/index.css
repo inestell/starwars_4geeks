@@ -1,0 +1,72 @@
+body {
+    background-color: black;
+    margin: auto;
+    font-family: "Euphemia", sans-serif;
+    
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    font-family: "restore", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 100px;
+    margin-top: 10px;
+    margin-bottom: 50px
+}
+
+h2 {
+    text-align: center;
+    font-family: "restore", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: rgb(0, 0, 0);
+    font-size: 50px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #fbb03b;
+    margin-bottom: 0;
+    margin-top: 80px
+}
+
+h3 {
+    text-align: center;
+    font-family: "restore", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    color: rgb(0, 0, 0);
+    font-size: 40px;
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: #fbb03b;
+    margin: 20px;
+}
+
+h5 {
+    font-weight: bolder;
+}
+
+.navbar {
+    background-color: #fbb03b;
+    display: flex;
+    flex-direction: row;
+    justify-content: end
+}
+
+input {
+    margin: 8px;
+    border: 2px solid black;
+    padding: 5px
+}
+
+button {
+    margin: 8px 30px 8px 0px;
+    padding: 5px 15px 5px 15px;
+    background-color: black;
+    color: white;
+}
+
+.cards-container {
+    border-top: 2px solid #fbb03b;
+    border-bottom: 2px solid #fbb03b;
+}
+
