@@ -16,7 +16,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/details" element={<Details />}></Route>
+            <Route path="/details/:index" element={<Details />}></Route>
           </Routes>
         </BrowserRouter>
       </AppContext>

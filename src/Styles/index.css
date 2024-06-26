@@ -53,14 +53,14 @@ h5 {
 }
 
 input {
-    margin: 8px;
+    margin: 3px;
     border: 2px solid black;
-    padding: 5px
+    padding: 10px 20px
 }
 
 button {
-    margin: 8px 30px 8px 0px;
-    padding: 5px 15px 5px 15px;
+    margin: 3px 30px 3px 0px;
+    padding: 10px 20px 10px 20px;
     background-color: black;
     color: white;
 }
@@ -70,3 +70,19 @@ button {
     border-bottom: 2px solid #fbb03b;
 }
 
+li {
+    font-size: 22px; 
+    color: white;
+    margin: 20px
+}
+
+footer {
+    color: white;
+    font-size: 22px;
+    text-align: center;
+    font-family: "restore", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    margin-top: 50px;
+    margin-bottom: 50px
+}
