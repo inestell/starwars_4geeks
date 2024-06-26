@@ -7,8 +7,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 
 function Home () {
-    const { data, fetchData, favoritesReducer} = useContext(MyContext);
+    const { data, setData, fetchData, favoritesReducer } = useContext(MyContext);
     const [favorites, dispatch] = useReducer(favoritesReducer, []);
+    const [input, setInput] = useState("");
 
     useEffect(() => {
         fetchData()
@@ -21,24 +22,26 @@ function Home () {
         });
     };
 
-    function handleDelete( index ) {
+    function handleDelete( person ) {
         dispatch({
             type: "delete", 
-            id: index
+            payload: person
         });
     };
 
 
-    console.log(data);
+
+    console.log(favorites);
 
     return (
-    <>
+    <div className="cont stars">
         <div>
             <h2>All about</h2>
             <h1>STAR WARS</h1>
         </div>
         <div className="navbar">
-                <input type="text" 
+                <input type="text"
+                        value={input}
                         placeholder="Search"></input>
                 <Dropdown>
                     <Dropdown.Toggle variant="dark" 
@@ -51,7 +54,7 @@ function Home () {
                                 <Dropdown.Item key={index}>
                                     {item.name}
                                     <span className="float-end"
-                                            onClick={handleDelete}>
+                                            onClick={() => handleDelete(item)}>
                                         <FontAwesomeIcon icon={faTrash} />
                                     </span>
                                 </Dropdown.Item>
@@ -77,7 +80,8 @@ function Home () {
             </div>
         </div>
         <footer>--- May the force be with you ---</footer>
-    </>
+        
+    </div>
  )
 };
 

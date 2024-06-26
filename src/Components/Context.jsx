@@ -38,12 +38,10 @@ function AppContext ({children}) {
 
             case "delete": {
                 return favorites.filter((item, i) => {
-                        i !== action.id
+                        return item.name !== action.payload.name
                     })
             }
-            case "click": {
-                <Link to></Link>
-            }
+            
         }
     }
 
