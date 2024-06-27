@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import { useState, useReducer } from "react";
 import axios from "axios";
 
@@ -10,6 +10,8 @@ let imgBase = "https://starwars-visualguide.com/assets/img/characters";
 
 function AppContext ({children}) {
     const [data, setData] = useState([]);
+    const [favorites, dispatch] = useReducer(favoritesReducer, []);
+    const [filteredCharacters, setFilteredCharacters] = useState(data)
     
 
     async function fetchData() {
@@ -20,8 +22,8 @@ function AppContext ({children}) {
                 let img = `${imgBase}/${i + 1}.jpg`;
                 return { ...element, img};
             });
-        setData(people);
-        console.log(people);
+            setData(people);
+            setFilteredCharacters(people);
         } catch (err) {
                 console.error(err);
         }
@@ -30,7 +32,7 @@ function AppContext ({children}) {
     function favoritesReducer(favorites, action) {
         switch(action.type) {
             case "add": {
-                return [
+               return [
                     ...favorites, 
                     action.payload
                 ]
@@ -43,13 +45,20 @@ function AppContext ({children}) {
             }
             
         }
-    }
+    };
 
     
     
 
     return (
-        <MyContext.Provider value={{data, setData, fetchData, favoritesReducer}}>
+        <MyContext.Provider value={{data, 
+                                    setData, 
+                                    fetchData, 
+                                    favoritesReducer, 
+                                    favorites, 
+                                    dispatch, 
+                                    filteredCharacters, 
+                                    setFilteredCharacters}}>
             {children}
         </MyContext.Provider>
     )

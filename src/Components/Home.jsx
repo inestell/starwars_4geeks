@@ -1,15 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Card from './Card';
-import {useContext, useEffect, useReducer, useState} from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { MyContext } from './Context';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Link } from 'react-router-dom';
 
 
 function Home () {
-    const { data, setData, fetchData, favoritesReducer } = useContext(MyContext);
-    const [favorites, dispatch] = useReducer(favoritesReducer, []);
-    const [input, setInput] = useState("");
+    const { data, setData, fetchData, favoritesReducer, favorites, dispatch, filteredCharacters, setFilteredCharacters } = useContext(MyContext);
+    
+    const [search, setSearch] = useState("");
+    
 
     useEffect(() => {
         fetchData()
@@ -27,11 +29,28 @@ function Home () {
             type: "delete", 
             payload: person
         });
+        //localStorage.setItem("favorites", JSON.stringify(favorites.filter((item) => item.name !== person.name)))
     };
 
+    function indexOnData(person) {
+        let index = data.indexOf(person);
+        return index;
+    };
 
+    favorites.map(item => console.log(indexOnData(item)));
+    
+    const handleSearch = (e) => {
+        const searchTerm = e.target.value;
+        setSearch(searchTerm);
+        
+        const filteredData = data.filter(person =>
+            person.name.toLowerCase().includes(search.toLowerCase())
+        );
 
-    console.log(favorites);
+        setFilteredCharacters(filteredData);
+    };
+
+    
 
     return (
     <div className="cont stars">
@@ -41,8 +60,10 @@ function Home () {
         </div>
         <div className="navbar">
                 <input type="text"
-                        value={input}
-                        placeholder="Search"></input>
+                        value={search}
+                        onChange={(e) => handleSearch(e)}
+                        placeholder="Search">
+                </input>
                 <Dropdown>
                     <Dropdown.Toggle variant="dark" 
                                         style={{padding: "10px 20px", borderRadius: "0"}}>
@@ -52,7 +73,9 @@ function Home () {
                         <Dropdown.Menu>
                             {favorites.map((item, index) => (
                                 <Dropdown.Item key={index}>
-                                    {item.name}
+                                    <Link style={{color: "black", textDecoration: "0"}} to={`/details/${indexOnData(item)}`}>
+                                        {item.name}
+                                    </Link>
                                     <span className="float-end"
                                             onClick={() => handleDelete(item)}>
                                         <FontAwesomeIcon icon={faTrash} />
@@ -67,14 +90,16 @@ function Home () {
         <div>
             <h3>Characters</h3>
             <div className="cards-container mb-5 d-flex flex-row flex-nowrap overflow-x-auto">
-                {data.map((person, index) => <Card key={person.name} 
+                {filteredCharacters.map((person, index) => <Card key={person.name} 
                                                     name={person.name} 
                                                     gender={person.gender} 
                                                     hair={person.hair_color} 
                                                     eye={person.eye_color} 
                                                     img={person.img}
                                                     index={index}
-                                                    onClick={() => handleAdd(person)}
+                                                    person={person}
+                                                    onAdd={() => handleAdd(person)}
+                                                    onDelete={() => handleDelete(person)}
                                                     />)}
                                                     
             </div>
@@ -86,3 +111,10 @@ function Home () {
 };
 
 export default Home;
+
+
+//localstorage
+//link do dropdown para details
+//filtro
+//repetir para os planetas e naves
+//melhorar a página dos detalhes

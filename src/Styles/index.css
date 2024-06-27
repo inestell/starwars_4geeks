@@ -102,3 +102,7 @@ footer {
     background:rgba(0, 0, 0) url(Stars.png) repeat top center;
     z-index: 0
 }
+
+.favorite:hover {
+    background-color: red
+}

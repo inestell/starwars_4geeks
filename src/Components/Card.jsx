@@ -1,14 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { MyContext } from './Context';
 
 
 
 function Card (props) {
-  
+  const { favorites } = useContext(MyContext);
 
-  
-  
+  let inFavorites = favorites.includes(props.person);
+
   return (
     <div className="card m-4 rounded-0" style={{width: "18rem", flex: "0 0 auto"}}>
       <img src={props.img} className="card-img-top" alt={props.name} />
@@ -25,9 +27,10 @@ function Card (props) {
           <button className="btn btn-dark rounded-0 border-2" style={{backgroundColor: "#fbb03b"}}>
             <Link style={{color: "black", textDecoration: "0"}} to={`/details/${props.index}`}>MORE...</Link>
           </button>
-          <button className="btn btn-dark rounded-0 mx-0" 
+          <button className={inFavorites ? "btn btn-danger rounded-0 mx-0" : "btn btn-dark rounded-0 mx-0 favorite"}
                   style={{padding: "5px 15px 5px 15px", border: "solid 2px black"}}
-                  onClick={props.onClick}>
+                  onClick={inFavorites ? props.onDelete : props.onAdd}
+                  >
             <FontAwesomeIcon icon={ faHeart } />
           </button>
         </div>
