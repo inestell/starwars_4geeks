@@ -45,6 +45,11 @@ h5 {
     font-weight: bolder;
 }
 
+h6 {
+    color: white;
+    font-size: 30px;
+}
+
 .navbar {
     background-color: #fbb03b;
     display: flex;
@@ -70,10 +75,14 @@ button {
     border-bottom: 2px solid #fbb03b;
 }
 
+ul {
+    list-style-type: none;
+}
+
 li {
     font-size: 22px; 
     color: white;
-    margin: 20px
+    margin-top: 10px
 }
 
 footer {
@@ -105,4 +114,8 @@ footer {
 
 .favorite:hover {
     background-color: red
+}
+
+.divider {
+    border-bottom: 2px solid #fbb03b;
 }
