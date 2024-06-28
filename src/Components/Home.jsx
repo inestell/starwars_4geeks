@@ -44,10 +44,13 @@ function Home () {
         setSearch(searchTerm);
         
         const filteredData = data.filter(person =>
-            person.name.toLowerCase().includes(search.toLowerCase())
+            person.name.toLowerCase().includes(e.target.value.toLowerCase())
         );
 
-        setFilteredCharacters(filteredData);
+        if(e.target.value === "") {
+            setFilteredCharacters(data)
+        } else { 
+            setFilteredCharacters(filteredData);}
     };
 
     
@@ -114,7 +117,6 @@ function Home () {
 export default Home;
 
 
-//localstorage
 //link do dropdown para details
 //filtro
 //repetir para os planetas e naves
