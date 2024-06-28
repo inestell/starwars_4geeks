@@ -27,7 +27,7 @@ function AppContext ({children}) {
             });
             setData(people);
             setFilteredCharacters(people);
-            localStorage.setItem("data", JSON.stringify(people))
+            //localStorage.setItem("data", JSON.stringify(people))
         } catch (err) {
                 console.error(err);
         }

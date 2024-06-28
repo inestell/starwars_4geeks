@@ -24,6 +24,8 @@ function Home () {
         });
     };
 
+
+
     function handleDelete( person ) {
         dispatch({
             type: "delete", 
@@ -118,5 +120,4 @@ export default Home;
 
 
 //link do dropdown para details
-//filtro
 //repetir para os planetas e naves
