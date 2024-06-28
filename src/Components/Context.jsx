@@ -37,7 +37,6 @@ function AppContext ({children}) {
         switch(action.type) {
             case "add": {
                const newFavorite = action.payload;
-               //localStorage.setItem("favorites", JSON.stringify(newFavorite))
                 return [
                     ...favorites, 
                     newFavorite
@@ -45,8 +44,7 @@ function AppContext ({children}) {
             }
 
             case "delete": {
-                const filteredFavorites = favorites.filter(item, i => item.name !== action.payload.name);
-                //localStorage.removeItem("favorites", JSON.stringify(favorites.filter((item) => item.name !== person.name)));
+                const filteredFavorites = favorites.filter(item => item.name !== action.payload.name);
                 return filteredFavorites
             }
             default: 
@@ -54,11 +52,7 @@ function AppContext ({children}) {
         }
     };
 
-
-    
-    
-    
-
+    console.log(favorites);
     return (
         <MyContext.Provider value={{data, 
                                     setData, 

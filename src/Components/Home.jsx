@@ -37,7 +37,7 @@ function Home () {
         return index;
     };
 
-    favorites.length > 0 && favorites.map(item => console.log(indexOnData(item)));
+    favorites.map(item => console.log(indexOnData(item)));
     
     const handleSearch = (e) => {
         const searchTerm = e.target.value;
@@ -50,7 +50,6 @@ function Home () {
         setFilteredCharacters(filteredData);
     };
 
-    console.log(localStorage);
     
 
     return (
@@ -73,12 +72,15 @@ function Home () {
                     {favorites.length >= 1 && (
                         <Dropdown.Menu>
                             {favorites.map((item, index) => (
-                                <Dropdown.Item key={index} tag={Link} style={{color: "black", textDecoration: "0"}} to={`/details/${indexOnData(item)}`}>
+                                <Dropdown.Item key={index}>
+                                    <Link style={{color: "black", textDecoration: "0"}} to={`/details/${indexOnData(item)}`}>
                                         {item.name}
+                                    </Link>
                                     <span className="float-end"
                                             onClick={() => handleDelete(item)}>
                                         <FontAwesomeIcon icon={faTrash} />
                                     </span>
+
                                 </Dropdown.Item>
                             ))
                             }
