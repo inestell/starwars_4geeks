@@ -10,9 +10,12 @@ let imgBase = "https://starwars-visualguide.com/assets/img/characters";
 
 function AppContext ({children}) {
     const [data, setData] = useState([]);
-    const [favorites, dispatch] = useReducer(favoritesReducer, []);
+    const [favorites, dispatch] = useReducer(favoritesReducer, JSON.parse(localStorage.getItem("favorites")) || []);
     const [filteredCharacters, setFilteredCharacters] = useState(data)
     
+    useEffect(() => {
+        localStorage.setItem("favorites", JSON.stringify(favorites))
+    }, [favorites]);
 
     async function fetchData() {
         try {
@@ -24,6 +27,7 @@ function AppContext ({children}) {
             });
             setData(people);
             setFilteredCharacters(people);
+            localStorage.setItem("data", JSON.stringify(people))
         } catch (err) {
                 console.error(err);
         }
@@ -32,21 +36,26 @@ function AppContext ({children}) {
     function favoritesReducer(favorites, action) {
         switch(action.type) {
             case "add": {
-               return [
+               const newFavorite = action.payload;
+               //localStorage.setItem("favorites", JSON.stringify(newFavorite))
+                return [
                     ...favorites, 
-                    action.payload
+                    newFavorite
                 ]
             }
 
             case "delete": {
-                return favorites.filter((item, i) => {
-                        return item.name !== action.payload.name
-                    })
+                const filteredFavorites = favorites.filter(item, i => item.name !== action.payload.name);
+                //localStorage.removeItem("favorites", JSON.stringify(favorites.filter((item) => item.name !== person.name)));
+                return filteredFavorites
             }
-            
+            default: 
+                return favorites;
         }
     };
 
+
+    
     
     
 

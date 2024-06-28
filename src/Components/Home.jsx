@@ -14,7 +14,7 @@ function Home () {
     
 
     useEffect(() => {
-        fetchData()
+        fetchData();
     }, []);
 
     function handleAdd( person ) {
@@ -29,7 +29,7 @@ function Home () {
             type: "delete", 
             payload: person
         });
-        //localStorage.setItem("favorites", JSON.stringify(favorites.filter((item) => item.name !== person.name)))
+        localStorage.setItem("favorites", JSON.stringify(favorites.filter(item => item.name !== person.name)));
     };
 
     function indexOnData(person) {
@@ -37,7 +37,7 @@ function Home () {
         return index;
     };
 
-    favorites.map(item => console.log(indexOnData(item)));
+    favorites.length > 0 && favorites.map(item => console.log(indexOnData(item)));
     
     const handleSearch = (e) => {
         const searchTerm = e.target.value;
@@ -50,6 +50,7 @@ function Home () {
         setFilteredCharacters(filteredData);
     };
 
+    console.log(localStorage);
     
 
     return (
@@ -72,10 +73,8 @@ function Home () {
                     {favorites.length >= 1 && (
                         <Dropdown.Menu>
                             {favorites.map((item, index) => (
-                                <Dropdown.Item key={index}>
-                                    <Link style={{color: "black", textDecoration: "0"}} to={`/details/${indexOnData(item)}`}>
+                                <Dropdown.Item key={index} tag={Link} style={{color: "black", textDecoration: "0"}} to={`/details/${indexOnData(item)}`}>
                                         {item.name}
-                                    </Link>
                                     <span className="float-end"
                                             onClick={() => handleDelete(item)}>
                                         <FontAwesomeIcon icon={faTrash} />
@@ -117,4 +116,3 @@ export default Home;
 //link do dropdown para details
 //filtro
 //repetir para os planetas e naves
-//melhorar a página dos detalhes
