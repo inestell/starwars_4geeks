@@ -5,13 +5,20 @@ import axios from "axios";
 export const MyContext = createContext();
 
 let url = "https://swapi.dev/api/people/?page=1";
+let urlVehicles = "https://www.swapi.tech/api/vehicles";
+let urlPlanets = "https://www.swapi.tech/api/planets";
 
 let imgBase = "https://starwars-visualguide.com/assets/img/characters";
+let imgVehicles = "https://starwars-visualguide.com/assets/img/vehicles";
+let imgPlanets = "https://starwars-visualguide.com/assets/img/planets"
 
 function AppContext ({children}) {
     const [data, setData] = useState([]);
+    const [vehicles, setVehicles] = useState([]);
+    const [planets, setPlanets] = useState([]);
     const [favorites, dispatch] = useReducer(favoritesReducer, JSON.parse(localStorage.getItem("favorites")) || []);
-    const [filteredCharacters, setFilteredCharacters] = useState(data)
+    const [filteredCharacters, setFilteredCharacters] = useState([]);
+    
     
     useEffect(() => {
         localStorage.setItem("favorites", JSON.stringify(favorites))
@@ -20,16 +27,39 @@ function AppContext ({children}) {
     async function fetchData() {
         try {
             let response = await axios.get(url);
-        
             let people = response.data.results.map((element, i) => {
                 let img = `${imgBase}/${i + 1}.jpg`;
-                return { ...element, img};
-            });
+                return { ...element, img}});
             setData(people);
             setFilteredCharacters(people);
-            //localStorage.setItem("data", JSON.stringify(people))
         } catch (err) {
                 console.error(err);
+        }
+    };
+
+    async function fetchVehicles() {
+        try {
+            let response = await axios.get(urlVehicles);
+            let allVehicles = response.data.results.map((element, i) => {
+                let img = `${imgVehicles}/${element.uid}.jpg`;
+                return {...element, img}});
+                console.log(vehicles.url);
+            setVehicles(allVehicles);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    async function fetchPlanets() {
+        try {
+            let response = await axios.get(urlPlanets);
+            let allPlanets = response.data.results.map((element, i) => {
+                let img = `${imgPlanets}/${element.uid}.jpg`;
+                return {...element, img}});
+            console.log(allPlanets);
+            setPlanets(allPlanets);
+        } catch (err) {
+            console.error(err);
         }
     };
 
@@ -61,7 +91,11 @@ function AppContext ({children}) {
                                     favorites, 
                                     dispatch, 
                                     filteredCharacters, 
-                                    setFilteredCharacters}}>
+                                    setFilteredCharacters,
+                                    vehicles,
+                                    fetchVehicles,
+                                    planets,
+                                    fetchPlanets}}>
             {children}
         </MyContext.Provider>
     )

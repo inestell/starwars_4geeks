@@ -50,6 +50,11 @@ h6 {
     font-size: 30px;
 }
 
+.header {
+    height: 300px;
+    
+}
+
 .navbar {
     background-color: #fbb03b;
     display: flex;
@@ -92,6 +97,7 @@ footer {
     font-family: "restore", sans-serif;
     font-weight: 500;
     font-style: normal;
+    padding-top: 50px;
     padding-bottom: 50px;
 }
 

@@ -5,12 +5,17 @@ import { faCakeCandles, faPerson, faFilm, faShuttleSpace, faVanShuttle } from '@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Details () {
-    //let data = JSON.parse(localStorage.getItem("data"));
-    const { data } = useContext(MyContext);
+    
+    const { data, fetchData } = useContext(MyContext);
 
     const {index} = useParams();
     
+    useEffect(() => {
+        fetchData()
+    }, []);
+    
     const thisPerson = data[index];
+    console.log(thisPerson);
 
     return (
         <>

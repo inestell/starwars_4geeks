@@ -1,6 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Card from './Card';
+import CardVehicle from './CardVehicle';
+import CardPlanets from './CardPlanets';
 import {useContext, useEffect, useState} from 'react';
 import { MyContext } from './Context';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -8,13 +10,15 @@ import { Link } from 'react-router-dom';
 
 
 function Home () {
-    const { data, setData, fetchData, favoritesReducer, favorites, dispatch, filteredCharacters, setFilteredCharacters } = useContext(MyContext);
+    const { data, fetchData, favoritesReducer, favorites, dispatch, filteredCharacters, setFilteredCharacters, vehicles, fetchVehicles, planets, fetchPlanets } = useContext(MyContext);
     
     const [search, setSearch] = useState("");
     
 
     useEffect(() => {
         fetchData();
+        fetchVehicles();
+        fetchPlanets();
     }, []);
 
     function handleAdd( person ) {
@@ -23,8 +27,6 @@ function Home () {
             payload: person
         });
     };
-
-
 
     function handleDelete( person ) {
         dispatch({
@@ -59,7 +61,7 @@ function Home () {
 
     return (
     <div className="cont stars">
-        <div>
+        <div className="header">
             <h2>All about</h2>
             <h1>STAR WARS</h1>
         </div>
@@ -95,8 +97,8 @@ function Home () {
         </div>
         <div>
             <h3>Characters</h3>
-            <div className="cards-container mb-5 d-flex flex-row flex-nowrap overflow-x-auto">
-                {filteredCharacters.map((person, index) => <Card key={person.name} 
+            <div className="cards-container mb-4 d-flex flex-row flex-nowrap overflow-x-auto">
+                {filteredCharacters && (filteredCharacters.map((person, index) => <Card key={person.name} 
                                                     name={person.name} 
                                                     gender={person.gender} 
                                                     hair={person.hair_color} 
@@ -106,7 +108,33 @@ function Home () {
                                                     person={person}
                                                     onAdd={() => handleAdd(person)}
                                                     onDelete={() => handleDelete(person)}
-                                                    />)}
+                                                    />))}
+                                                    
+            </div>
+        </div>
+        <div>
+            <h3>Vehicles</h3>
+            <div className="cards-container mb-4 d-flex flex-row flex-nowrap overflow-x-auto">
+                {vehicles && (vehicles.map((vehicle, index) => <CardVehicle  key={vehicle.name}
+                                                    name={vehicle.name}
+                                                    img={vehicle.img}
+                                                    index={index}
+                                                    onAdd={() => handleAdd(vehicle)}
+                                                    onDelete={() => handleDelete(vehicle)}
+                                                    />))}
+                                                    
+            </div>
+        </div>
+        <div>
+            <h3>Planets</h3>
+            <div className="cards-container mb-4 d-flex flex-row flex-nowrap overflow-x-auto">
+                {planets && (planets.map((planet, index) => <CardPlanets  key={planet.name}
+                                                    name={planet.name}
+                                                    img={planet.img}
+                                                    index={index}
+                                                    onAdd={() => handleAdd(planet)}
+                                                    onDelete={() => handleDelete(planet)}
+                                                    />))}
                                                     
             </div>
         </div>
