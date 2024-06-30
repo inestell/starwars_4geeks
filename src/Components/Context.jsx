@@ -17,11 +17,15 @@ function AppContext ({children}) {
     const [vehicles, setVehicles] = useState([]);
     const [planets, setPlanets] = useState([]);
     const [favorites, dispatch] = useReducer(favoritesReducer, JSON.parse(localStorage.getItem("favorites")) || []);
+    
     const [filteredCharacters, setFilteredCharacters] = useState([]);
+    const [filteredVehicles, setFilteredVehicles] = useState([]);
+    const [filteredPlanets, setFilteredPlanets] = useState([]);
     
     
     useEffect(() => {
-        localStorage.setItem("favorites", JSON.stringify(favorites))
+        localStorage.setItem("favorites", JSON.stringify(favorites));
+
     }, [favorites]);
 
     async function fetchData() {
@@ -66,7 +70,7 @@ function AppContext ({children}) {
     function favoritesReducer(favorites, action) {
         switch(action.type) {
             case "add": {
-               const newFavorite = action.payload;
+                const newFavorite = action.payload;
                 return [
                     ...favorites, 
                     newFavorite
@@ -83,6 +87,7 @@ function AppContext ({children}) {
     };
 
     console.log(favorites);
+
     return (
         <MyContext.Provider value={{data, 
                                     setData, 
@@ -95,7 +100,11 @@ function AppContext ({children}) {
                                     vehicles,
                                     fetchVehicles,
                                     planets,
-                                    fetchPlanets}}>
+                                    fetchPlanets, 
+                                    filteredPlanets, 
+                                    setFilteredPlanets, 
+                                    filteredVehicles, 
+                                    setFilteredVehicles}}>
             {children}
         </MyContext.Provider>
     )

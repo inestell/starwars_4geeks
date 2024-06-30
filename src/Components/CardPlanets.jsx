@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { MyContext } from './Context';
+import { useContext } from 'react';
 
 function CardPlanets(props) {
-    
-    let inFavorites = false;
+    const { favorites } = useContext(MyContext);
+
+    let inFavorites = favorites.includes(props.planet);
 
     return(
         <div className="card m-4 rounded-0" style={{width: "18rem", flex: "0 0 auto"}}>

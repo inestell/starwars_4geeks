@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 
 function Home () {
-    const { data, fetchData, favoritesReducer, favorites, dispatch, filteredCharacters, setFilteredCharacters, vehicles, fetchVehicles, planets, fetchPlanets } = useContext(MyContext);
+    const { data, fetchData, favoritesReducer, favorites, dispatch, filteredCharacters, setFilteredCharacters, vehicles, fetchVehicles, planets, fetchPlanets, filteredVehicles, setFilteredVehicles, filteredPlanets, setFilteredPlanets } = useContext(MyContext);
     
     const [search, setSearch] = useState("");
     
@@ -44,17 +44,11 @@ function Home () {
     favorites.map(item => console.log(indexOnData(item)));
     
     const handleSearch = (e) => {
-        const searchTerm = e.target.value;
-        setSearch(searchTerm);
-        
+        setSearch(e.target.value);
         const filteredData = data.filter(person =>
             person.name.toLowerCase().includes(e.target.value.toLowerCase())
         );
-
-        if(e.target.value === "") {
-            setFilteredCharacters(data)
-        } else { 
-            setFilteredCharacters(filteredData);}
+        e.target.value === "" ? setFilteredCharacters(data) : setFilteredCharacters(filteredData);
     };
 
     
@@ -108,6 +102,7 @@ function Home () {
                                                     person={person}
                                                     onAdd={() => handleAdd(person)}
                                                     onDelete={() => handleDelete(person)}
+                                                
                                                     />))}
                                                     
             </div>
@@ -119,6 +114,7 @@ function Home () {
                                                     name={vehicle.name}
                                                     img={vehicle.img}
                                                     index={index}
+                                                    vehicle={vehicle}
                                                     onAdd={() => handleAdd(vehicle)}
                                                     onDelete={() => handleDelete(vehicle)}
                                                     />))}
@@ -132,6 +128,7 @@ function Home () {
                                                     name={planet.name}
                                                     img={planet.img}
                                                     index={index}
+                                                    planet={planet}
                                                     onAdd={() => handleAdd(planet)}
                                                     onDelete={() => handleDelete(planet)}
                                                     />))}
@@ -148,4 +145,6 @@ export default Home;
 
 
 //link do dropdown para details
-//repetir para os planetas e naves
+//por o filtro a funcionar para os planetas e veiculos
+//renderizar só depois de receber fetch
+//formatar as imagens dos detalhes

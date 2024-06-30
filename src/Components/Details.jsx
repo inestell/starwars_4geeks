@@ -20,7 +20,7 @@ function Details () {
     return (
         <>
             <div className="row">
-                <div className="col-6 p-5">
+                <div className=" col-6 p-5">
                     <h4 style={{fontSize: "80px", color: "#fbb03b", marginBottom: "50px"}}
                         className="divider">{thisPerson.name}</h4>
                     <div>

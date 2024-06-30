@@ -1,21 +1,36 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { MyContext } from "./Context";
-import { faPerson } from '@fortawesome/free-solid-svg-icons';
+import { faPerson, faListUl } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from "axios";
 
 function DetailsPlanets () {
-    
+    const [dataP, setDataP] = useState([]);
+
     const { planets, fetchPlanets } = useContext(MyContext);
 
     const {index} = useParams();
     
     useEffect(() => {
         fetchPlanets()
+        fetchP();
     }, []);
-    
+
     const thisPlanet = planets[index];
-    console.log(thisPlanet);
+    const URL = thisPlanet.url
+    
+    const fetchP = async () => {
+        try {
+            let response = await axios.get(URL);
+            let thePlanet = response.data.result.properties;
+            setDataP(thePlanet);
+        } catch (err) {
+                console.error(err);
+        }
+    };
+    
+    console.log(dataP);
 
     return (
         <>
@@ -26,13 +41,22 @@ function DetailsPlanets () {
                     <div>
                         <h6>
                             <span style={{padding: "8px", color: "#fbb03b"}}>
-                                <FontAwesomeIcon icon={ faPerson } />
+                                <FontAwesomeIcon icon={ faListUl } />
                             </span>
-                            Birth
+                            Features
                         </h6>
                         <ul className="mb-5">
-                            <li>Date of birth:</li>
-                            <li>Planet of birth: </li>
+                            <li>Diameter: {dataP.diameter}</li>
+                            <li>Gravity: {dataP.gravity}</li>
+                            <br />
+                            <li>Rotation period: {dataP.rotation_period}</li>
+                            <li>Orbital period: {dataP.orbital_period}</li>
+                            <br />
+                            <li>Terrain: {dataP.terrain}</li>
+                            <li>Surface water: {dataP.surface_water}</li>
+                            <li>Climate: {dataP.climate}</li>
+                            <li>Population: {dataP.population}</li>
+                            
                         </ul>
                     </div>
                 </div>
