@@ -15,11 +15,7 @@ function Home () {
     const [search, setSearch] = useState("");
     
 
-    useEffect(() => {
-        fetchData();
-        fetchVehicles();
-        fetchPlanets();
-    }, []);
+    
 
     function handleAdd( person ) {
         dispatch({
@@ -46,11 +42,23 @@ function Home () {
     const handleSearch = (e) => {
         setSearch(e.target.value);
         const filteredData = data.filter(person =>
-            person.name.toLowerCase().includes(e.target.value.toLowerCase())
-        );
+            person.name.toLowerCase().includes(e.target.value.toLowerCase()));
         e.target.value === "" ? setFilteredCharacters(data) : setFilteredCharacters(filteredData);
     };
 
+    const handleVSearch = (e) => {
+        setSearch(e.target.value);
+        const filteredData = vehicles.filter(vehicle =>
+            vehicle.name.toLowerCase().includes(e.target.value.toLowerCase()));
+        e.target.value === "" ? setFilteredVehicles(vehicles) : setFilteredVehicles(filteredData);
+    };
+
+    const handlePSearch = (e) => {
+        setSearch(e.target.value);
+        const filteredData = planets.filter(planet =>
+            planet.name.toLowerCase().includes(e.target.value.toLowerCase()));
+        e.target.value === "" ? setFilteredPlanets(planets) : setFilteredPlanets(filteredData);
+    };
     
 
     return (
@@ -62,7 +70,7 @@ function Home () {
         <div className="navbar">
                 <input type="text"
                         value={search}
-                        onChange={(e) => handleSearch(e)}
+                        onChange={(e) => {handleSearch(e); handlePSearch(e); handleVSearch(e)}}
                         placeholder="Search">
                 </input>
                 <Dropdown>
@@ -74,9 +82,7 @@ function Home () {
                         <Dropdown.Menu>
                             {favorites.map((item, index) => (
                                 <Dropdown.Item key={index}>
-                                    <Link style={{color: "black", textDecoration: "0"}} to={`/details/${indexOnData(item)}`}>
-                                        {item.name}
-                                    </Link>
+                                    {item.name}
                                     <span className="float-end"
                                             onClick={() => handleDelete(item)}>
                                         <FontAwesomeIcon icon={faTrash} />
@@ -93,7 +99,8 @@ function Home () {
             <h3>Characters</h3>
             <div className="cards-container mb-4 d-flex flex-row flex-nowrap overflow-x-auto">
                 {filteredCharacters && (filteredCharacters.map((person, index) => <Card key={person.name} 
-                                                    name={person.name} 
+                                                    name={person.name}
+                                                    uid={person.uid}
                                                     gender={person.gender} 
                                                     hair={person.hair_color} 
                                                     eye={person.eye_color} 
@@ -110,9 +117,10 @@ function Home () {
         <div>
             <h3>Vehicles</h3>
             <div className="cards-container mb-4 d-flex flex-row flex-nowrap overflow-x-auto">
-                {vehicles && (vehicles.map((vehicle, index) => <CardVehicle  key={vehicle.name}
+                {filteredVehicles && (filteredVehicles.map((vehicle, index) => <CardVehicle  key={vehicle.name}
                                                     name={vehicle.name}
                                                     img={vehicle.img}
+                                                    uid={vehicle.uid}
                                                     index={index}
                                                     vehicle={vehicle}
                                                     onAdd={() => handleAdd(vehicle)}
@@ -124,9 +132,10 @@ function Home () {
         <div>
             <h3>Planets</h3>
             <div className="cards-container mb-4 d-flex flex-row flex-nowrap overflow-x-auto">
-                {planets && (planets.map((planet, index) => <CardPlanets  key={planet.name}
+                {filteredPlanets && (filteredPlanets.map((planet, index) => <CardPlanets  key={planet.name}
                                                     name={planet.name}
                                                     img={planet.img}
+                                                    uid={planet.uid}
                                                     index={index}
                                                     planet={planet}
                                                     onAdd={() => handleAdd(planet)}
@@ -145,6 +154,5 @@ export default Home;
 
 
 //link do dropdown para details
-//por o filtro a funcionar para os planetas e veiculos
 //renderizar só depois de receber fetch
 //formatar as imagens dos detalhes

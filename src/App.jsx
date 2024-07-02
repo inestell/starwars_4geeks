@@ -18,9 +18,9 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path="/details/:index" element={<Details />}></Route>
-            <Route path="/detailsPlanets/:index" element={<DetailsPlanets />}></Route>
-            <Route path="/detailsVehicles/:index" element={<DetailsVehicles />}></Route>
+            <Route path="/details/:name" element={<Details />}></Route>
+            <Route path="/detailsPlanets/:name" element={<DetailsPlanets />}></Route>
+            <Route path="/detailsVehicles/:name" element={<DetailsVehicles />}></Route>
           </Routes>
         </BrowserRouter>
       </AppContext>

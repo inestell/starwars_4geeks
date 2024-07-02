@@ -1,6 +1,7 @@
 import { createContext, useEffect } from "react";
 import { useState, useReducer } from "react";
 import axios from "axios";
+import { v4 as uuid } from "uuid";
 
 export const MyContext = createContext();
 
@@ -28,13 +29,22 @@ function AppContext ({children}) {
 
     }, [favorites]);
 
+    useEffect(() => {
+        fetchData();
+        fetchVehicles();
+        fetchPlanets();
+    }, []);
+
+    
     async function fetchData() {
         try {
             let response = await axios.get(url);
             let people = response.data.results.map((element, i) => {
                 let img = `${imgBase}/${i + 1}.jpg`;
-                return { ...element, img}});
+                let uid = uuid();
+                return { ...element, img, uid}});
             setData(people);
+            console.log(data);
             setFilteredCharacters(people);
         } catch (err) {
                 console.error(err);
@@ -47,8 +57,9 @@ function AppContext ({children}) {
             let allVehicles = response.data.results.map((element, i) => {
                 let img = `${imgVehicles}/${element.uid}.jpg`;
                 return {...element, img}});
-                console.log(vehicles.url);
+                
             setVehicles(allVehicles);
+            setFilteredVehicles(allVehicles);
         } catch (err) {
             console.error(err);
         }
@@ -60,8 +71,8 @@ function AppContext ({children}) {
             let allPlanets = response.data.results.map((element, i) => {
                 let img = `${imgPlanets}/${element.uid}.jpg`;
                 return {...element, img}});
-            console.log(allPlanets);
             setPlanets(allPlanets);
+            setFilteredPlanets(allPlanets);
         } catch (err) {
             console.error(err);
         }

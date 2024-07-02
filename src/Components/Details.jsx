@@ -1,4 +1,4 @@
-import { useContext, useEffect} from 'react';
+import { useContext } from 'react';
 import { MyContext } from './Context';
 import { useParams } from 'react-router-dom';
 import { faCakeCandles, faPerson, faFilm, faShuttleSpace, faVanShuttle } from '@fortawesome/free-solid-svg-icons';
@@ -8,13 +8,12 @@ function Details () {
     
     const { data, fetchData } = useContext(MyContext);
 
-    const {index} = useParams();
+    const {name} = useParams();
     
-    useEffect(() => {
-        fetchData()
-    }, []);
-    
-    const thisPerson = data[index];
+
+    const thisPerson = data.filter((person) => {person.name === name});
+
+
     console.log(thisPerson);
 
     return (

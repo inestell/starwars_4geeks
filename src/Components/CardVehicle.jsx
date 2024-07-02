@@ -18,7 +18,7 @@ function CardVehicle(props) {
                 
                 <div className="buttons d-flex justify-content-between align-self-end">
                     <button className="btn btn-dark rounded-0 border-2" style={{backgroundColor: "#fbb03b"}}>
-                        <Link style={{color: "black", textDecoration: "0"}} to={`/detailsVehicles/${props.index}`}>MORE...</Link>
+                        <Link style={{color: "black", textDecoration: "0"}} to={`/detailsVehicles/${props.name}`}>MORE...</Link>
                     </button>
                     <button className={inFavorites ? "btn btn-danger rounded-0 mx-0" : "btn btn-dark rounded-0 mx-0 favorite"}
                             style={{padding: "5px 15px 5px 15px", border: "solid 2px black"}}
