@@ -3,20 +3,16 @@ import { faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 import Card from './Card';
 import CardVehicle from './CardVehicle';
 import CardPlanets from './CardPlanets';
-import {useContext, useEffect, useState} from 'react';
+import {useContext, useState} from 'react';
 import { MyContext } from './Context';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Link } from 'react-router-dom';
 
 
 function Home () {
-    const { data, fetchData, favoritesReducer, favorites, dispatch, filteredCharacters, setFilteredCharacters, vehicles, fetchVehicles, planets, fetchPlanets, filteredVehicles, setFilteredVehicles, filteredPlanets, setFilteredPlanets } = useContext(MyContext);
+    const { data, favorites, dispatch, filteredCharacters, setFilteredCharacters, vehicles, planets, filteredVehicles, setFilteredVehicles, filteredPlanets, setFilteredPlanets } = useContext(MyContext);
     
     const [search, setSearch] = useState("");
     
-
-    
-
     function handleAdd( person ) {
         dispatch({
             type: "add",
@@ -31,13 +27,7 @@ function Home () {
         });
         localStorage.setItem("favorites", JSON.stringify(favorites.filter(item => item.name !== person.name)));
     };
-
-    function indexOnData(person) {
-        let index = data.indexOf(person);
-        return index;
-    };
-
-    favorites.map(item => console.log(indexOnData(item)));
+    
     
     const handleSearch = (e) => {
         setSearch(e.target.value);

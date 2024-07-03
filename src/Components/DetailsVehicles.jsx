@@ -8,16 +8,16 @@ import axios from "axios";
 function DetailsVehicles () {
     const [dataV, setDataV] = useState([]);
 
-    const { vehicles, fetchVehicles } = useContext(MyContext);
+    const { vehicles } = useContext(MyContext);
 
-    const {index} = useParams();
+    const {name} = useParams();
     
     useEffect(() => {
-        fetchVehicles();
         fetchV();
     }, []);
     
-    const thisVehicle = vehicles[index];
+    const thisVehicle = vehicles.filter((vehicle) => {
+        return vehicle.name == name})[0];
     const URL = `https://www.swapi.tech/api/vehicles/${thisVehicle.uid}`
     
 

@@ -1,23 +1,24 @@
 import { useContext, useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
 import { MyContext } from "./Context";
-import { faPerson, faListUl } from '@fortawesome/free-solid-svg-icons';
+import { faListUl } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from "axios";
 
 function DetailsPlanets () {
-    const [dataP, setDataP] = useState([]);
+    const [dataP, setDataP] = useState([])
 
-    const { planets, fetchPlanets } = useContext(MyContext);
+    const { planets } = useContext(MyContext);
 
-    const {index} = useParams();
+    const {name} = useParams();
     
-    useEffect(() => {
-        fetchPlanets()
-        fetchP();
-    }, []);
+    const thisPlanet = planets.filter((planet) => {
+        return planet.name === name})[0];
 
-    const thisPlanet = planets[index];
+    useEffect(() => {
+        fetchP()
+    }, [])
+
     const URL = thisPlanet.url
     
     const fetchP = async () => {

@@ -6,15 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Details () {
     
-    const { data, fetchData } = useContext(MyContext);
+    const { data } = useContext(MyContext);
 
     const {name} = useParams();
-    
 
-    const thisPerson = data.filter((person) => {person.name === name});
-
-
-    console.log(thisPerson);
+    const thisPerson = data.filter((person) => {
+        return person.name === name})[0];
 
     return (
         <>
@@ -54,7 +51,7 @@ function Details () {
                             Films
                         </h6>
                         <ul className="mb-5">
-                            <li>Films: </li>
+                            <li> </li>
                         </ul>
                         <h6>
                             <span style={{padding: "8px", color: "#fbb03b"}}>
@@ -63,7 +60,7 @@ function Details () {
                             Starships
                         </h6>
                         <ul className="mb-5">
-                            <li>Starships: </li>
+                            <li> </li>
                         </ul>
                         <h6>
                             <span style={{padding: "8px", color: "#fbb03b"}}>
@@ -72,7 +69,7 @@ function Details () {
                             Vehicles
                         </h6>
                         <ul className="mb-5">
-                            <li>Vehicles: </li>
+                            <li> </li>
                         </ul>
                     </div>
                 </div>
