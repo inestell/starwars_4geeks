@@ -27,7 +27,7 @@ function Home () {
         });
         localStorage.setItem("favorites", JSON.stringify(favorites.filter(item => item.name !== person.name)));
     };
-    
+
     
     const handleSearch = (e) => {
         setSearch(e.target.value);
@@ -90,7 +90,6 @@ function Home () {
             <div className="cards-container mb-4 d-flex flex-row flex-nowrap overflow-x-auto">
                 {filteredCharacters && (filteredCharacters.map((person, index) => <Card key={person.name} 
                                                     name={person.name}
-                                                    uid={person.uid}
                                                     gender={person.gender} 
                                                     hair={person.hair_color} 
                                                     eye={person.eye_color} 
@@ -141,8 +140,3 @@ function Home () {
 };
 
 export default Home;
-
-
-//link do dropdown para details
-//renderizar só depois de receber fetch
-//formatar as imagens dos detalhes

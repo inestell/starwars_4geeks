@@ -1,7 +1,6 @@
 import { createContext, useEffect } from "react";
 import { useState, useReducer } from "react";
 import axios from "axios";
-import { v4 as uuid } from "uuid";
 
 export const MyContext = createContext();
 
@@ -41,10 +40,8 @@ function AppContext ({children}) {
             let response = await axios.get(url);
             let people = response.data.results.map((element, i) => {
                 let img = `${imgBase}/${i + 1}.jpg`;
-                let uid = uuid();
-                return { ...element, img, uid}});
+                return { ...element, img}});
             setData(people);
-            console.log(data);
             setFilteredCharacters(people);
         } catch (err) {
                 console.error(err);
@@ -96,8 +93,6 @@ function AppContext ({children}) {
                 return favorites;
         }
     };
-
-    console.log(favorites);
 
     return (
         <MyContext.Provider value={{data, 
